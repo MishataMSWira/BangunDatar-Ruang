@@ -1,5 +1,6 @@
 import express from "express"
 import { kelilingLingkaran, kelilingPersegi, kelilingPersegiPanjang, luasLingkaran, luasPersegi, luasPersegiPanjang, luasSegitiga,  } from "../controller/bangunDatar"
+import * as validate from "../middleware/validateDatar"
 const app = express()
 
 /** allow read a body */
@@ -11,13 +12,13 @@ app.use(express.json())
  */
 
 
-app.post(`/lingkaran/luas`,luasLingkaran)
-app.post(`/lingkaran/keliling`,kelilingLingkaran)
-app.post(`/persegi/luas`, luasPersegi)
-app.post(`/persegi/keliling`, kelilingPersegi)
-app.post(`/persegipanjang/luas`, luasPersegiPanjang)
-app.post(`/persegipanjang/keliling`, kelilingPersegiPanjang)
-app.post(`/segitiga/luas`, luasSegitiga)
+app.post(`/lingkaran/luas`, validate.validateLingkaran, luasLingkaran)
+app.post(`/lingkaran/keliling`, validate.validateLingkaran,kelilingLingkaran)
+app.post(`/persegi/luas`, validate.validatePersegi,luasPersegi)
+app.post(`/persegi/keliling`, validate.validatePersegi,kelilingPersegi)
+app.post(`/persegipanjang/luas`, validate.validatePersegiPanjang,luasPersegiPanjang)
+app.post(`/persegipanjang/keliling`, validate.validatePersegiPanjang,kelilingPersegiPanjang)
+app.post(`/segitiga/luas`, validate.validateSegitiga,luasSegitiga)
 
 
 export default app
