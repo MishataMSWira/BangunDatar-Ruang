@@ -6,6 +6,7 @@
 import express, { Request, Response } from "express"
 import routeBangunDatar from "./route/bangunDatar"
 import routeBangunRuang from "./route/bangunRuang"
+import eventRoute from "./route/eventRoute"
 
 /** buat wadah untuk inisiasi express */
 const app = express()
@@ -98,6 +99,7 @@ app.post(`/balok`, (request: Request, response: Response) => {
 /** register route of Bangun datar */
 app.use(routeBangunDatar)
 app.use(routeBangunRuang)
+app.use(eventRoute)
 
 /** run server */
 app.listen(PORT, () => {
