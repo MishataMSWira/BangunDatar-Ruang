@@ -7,6 +7,10 @@ import express, { Request, Response } from "express"
 import routeBangunDatar from "./route/bangunDatar"
 import routeBangunRuang from "./route/bangunRuang"
 import eventRoute from "./route/eventRoute"
+import seatsRoute from "./route/seatsRoute"
+import usersRoute from "./route/usersRoute"
+import ticketsRoute from "./route/ticketsRoute"
+
 
 /** buat wadah untuk inisiasi express */
 const app = express()
@@ -100,6 +104,9 @@ app.post(`/balok`, (request: Request, response: Response) => {
 app.use(routeBangunDatar)
 app.use(routeBangunRuang)
 app.use(eventRoute)
+app.use(seatsRoute)
+app.use(usersRoute)
+app.use(ticketsRoute)
 
 /** run server */
 app.listen(PORT, () => {
