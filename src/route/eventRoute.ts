@@ -1,5 +1,5 @@
 import express from "express"
-import { createEvent, readEvents } from "../controller/eventsController"
+import { createEvent, deleteEvents, readEvents, updateEvent } from "../controller/eventsController"
 const app = express()
 
 /** allow read to a json from body */
@@ -9,7 +9,10 @@ app.use(express.json())
 app.get(`/event`, readEvents)
 /** address for add new event */
 app.post(`/event`, createEvent)
-/** address for  */
+/** address for update event */
+app.put(`/event/:eventID`, updateEvent)
+/** address for delete event */
+app.delete(`/event/:eventID`, deleteEvents)
 
 
 

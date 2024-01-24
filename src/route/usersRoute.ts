@@ -1,15 +1,18 @@
 import express from "express"
-import { createUsers, readUsers } from "../controller/usersController"
+import { createUsers, deleteUsers, readUsers, updateUsers } from "../controller/usersController"
 const app = express()
 
 /** allow read to a json from body */
 app.use(express.json())
 
-/** address for get event data */
+/** address for get users data */
 app.get(`/users`, readUsers)
-/** address for add new event */
+/** address for add new users */
 app.post(`/users`, createUsers)
-/** address for  */
+/** address for update users */
+app.put(`/users/:userID`, updateUsers)
+/** address for delete users */
+app.delete(`/users/:userID`, deleteUsers)
 
 
 

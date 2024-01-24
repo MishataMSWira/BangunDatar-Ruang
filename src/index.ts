@@ -100,9 +100,10 @@ app.post(`/balok`, (request: Request, response: Response) => {
     })
 })
 
-/** register route of Bangun datar */
+/** register route of Bangun datar & Concert*/
 app.use(routeBangunDatar)
 app.use(routeBangunRuang)
+//--------------------------------------------------------------------------------------------------
 app.use(eventRoute)
 app.use(seatsRoute)
 app.use(usersRoute)
