@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response, response } from "express";
 import md5 from "md5";
+import { sign } from "jsonwebtoken"
 
 
 /** create an object of Prisma */
@@ -156,9 +157,14 @@ const loginUser = async (request: Request, response: Response) => {
       }
     )
     if (user) {
+      const payload = user
+      const secretkey = 'akupengencerita'
+      const token = sign(payload,secretkey)
+
       return response.status(200).json({
         status: true, 
-        message: "Login Successful 😍"
+        message: "Login Successful 😍",
+        token: token
       })
     }
     else {
