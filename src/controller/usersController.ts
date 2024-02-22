@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response, response } from "express";
+import md5 from "md5";
+
 
 /** create an object of Prisma */
 const prisma = new PrismaClient();
@@ -12,7 +14,7 @@ const createUsers = async (request: Request, response: Response) => {
     const firstname = request.body.firstname;
     const lastname = request.body.lastname;
     const email = request.body.email;
-    const password = request.body.password;
+    const password = md5(request.body.password);
     const role = request.body.role;
 
     /** insert to events table using prisma */
@@ -65,7 +67,7 @@ const updateUsers = async (request: Request, response: Response) => {
     const firstname = request.body.firstname
     const lastname = request.body.lastname
     const email = request.body.email
-    const password = request.body.password
+    const password = md5(request.body.password)
     const role = request.body.role
 
     /** make sure that data has exists */
@@ -141,6 +143,36 @@ const deleteUsers = async (request: Request, response: Response) => {
   }
 };
 
+const loginUser = async (request: Request, response: Response) => {
+  try {
+    const email = request.body.email
+    const password = md5(request.body.password)
+    const user = await prisma.users.findFirst(
+      {
+        where: {
+          email: email, 
+          password: password
+        }
+      }
+    )
+    if (user) {
+      return response.status(200).json({
+        status: true, 
+        message: "Login Successful 😍"
+      })
+    }
+    else {
+      return response.status(200).json({
+        status: false,
+        message: "Login Failed, Try Again"
+      })
+    }
 
+  } catch (error) {
+    return response.status(500).json({
+      status: false, message: error
+    })
+  }
+}
 
-export {createUsers, readUsers, updateUsers, deleteUsers}
+export {createUsers, readUsers, updateUsers, deleteUsers, loginUser}

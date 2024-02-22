@@ -40,7 +40,20 @@ const createEvent = async (request: Request, response: Response) => {
 /** create a function to READ events */
 const readEvents = async (request: Request, response: Response) => {
   try {
-    const dataEvent = await prisma.events.findMany();
+    const page = Number(request.query.page) || 1;
+    const qty = Number(request.query.qty) || 10;
+    const keyword = request.query.keyword?.toString() || "";
+    const dataEvent = await prisma.events.findMany({
+      take: qty, // mendefinisikan jml data yg diambil
+      skip: (page -1) * qty,
+      where: {
+        OR: [
+          {eventName: {contains: keyword}},
+          {venue: {contains: keyword}},
+        ]
+      },
+      orderBy: {eventName: "asc"}
+    });
     return response.status(200).json({
       status: true,
       message: `Events has been loaded`,

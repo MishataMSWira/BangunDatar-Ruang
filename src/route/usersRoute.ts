@@ -1,5 +1,5 @@
 import express from "express"
-import { createUsers, deleteUsers, readUsers, updateUsers } from "../controller/usersController"
+import { createUsers, deleteUsers, loginUser, readUsers, updateUsers } from "../controller/usersController"
 const app = express()
 
 /** allow read to a json from body */
@@ -13,6 +13,8 @@ app.post(`/users`, createUsers)
 app.put(`/users/:userID`, updateUsers)
 /** address for delete users */
 app.delete(`/users/:userID`, deleteUsers)
+/** address for Login Users */
+app.post(`/users/login`, loginUser)
 
 
 
