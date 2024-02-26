@@ -1,11 +1,11 @@
 import { PrismaClient } from "@prisma/client";
-import { Request, Response, response } from "express";
+import { Request, Response } from "express";
 import md5 from "md5";
 import { sign } from "jsonwebtoken"
 
 
 /** create an object of Prisma */
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({log:["error"]});
 
 /** create a function to "create" new event */
 /** asynchronous = fungsi yg berjalan secara paralel */
@@ -122,7 +122,7 @@ const deleteUsers = async (request: Request, response: Response) => {
       /** give a respon when event not found */
       return response.status(400).json({
         status: false,
-        message: `Data event not found...`,
+        message: `Data user not found...`,
       });
     }
 
@@ -133,7 +133,7 @@ const deleteUsers = async (request: Request, response: Response) => {
     return response.status(200)
     .json({
       status: true,
-      message: `Data users has been deleted`
+      message: `Data users has been deleted`,
     })
 
   } catch (error) {
@@ -158,7 +158,7 @@ const loginUser = async (request: Request, response: Response) => {
     )
     if (user) {
       const payload = user
-      const secretkey = 'akupengencerita'
+      const secretkey = 'akupengencerita💕💕'
       const token = sign(payload,secretkey)
 
       return response.status(200).json({
